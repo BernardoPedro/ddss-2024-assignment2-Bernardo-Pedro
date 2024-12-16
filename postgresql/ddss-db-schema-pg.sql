@@ -46,6 +46,10 @@ CREATE TABLE books (
 );
 
 
+-- Default dada for users
+insert into users (username, password, salt)
+          values('admin','testadmin123', 'randomsalt123');
+
 
 -- Default data for messages
 insert into messages (author, message)
