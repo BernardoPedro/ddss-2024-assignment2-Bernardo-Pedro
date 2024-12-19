@@ -1,3 +1,9 @@
+<?php session_start(); // Verificar se o usuário está logado 
+if (!isset($_SESSION['username'])) {
+  printf("Error: User not logged in. Please log in first!<br/>");
+  exit();
+} ?>
+
 <!doctype html>
 <!--
 

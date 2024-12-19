@@ -14,9 +14,11 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
 	$result = pg_query($conn, $sql);
 
 	if ($result && pg_num_rows($result) > 0) {
-		echo "Login bem-sucedido!";
+		print ("Login bem-sucedido!");
+		session_regenerate_id(true);
+		$_SESSION['username'] = $username;
 	} else {
-		echo "Nome de usuário ou senha incorretos.";
+		print ("Nome de usuário ou senha incorretos.");
 	}
 }
 

@@ -15,7 +15,7 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
     // Verificar se o usuário já existe
     $result = pg_query_params($conn, "SELECT * FROM users WHERE username = $1", array($username));
     if (pg_num_rows($result) > 0) {
-        echo "Username already exists.";
+        print ("Username already exists.");
         exit;
     }
 
@@ -30,12 +30,12 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
 
     if (!$result) {
         error_log("Erro ao registrar o usuário: " . pg_last_error());
-        echo "Erro ao registrar o usuário.";
+        print ("Erro ao registrar o usuário.");
     } else {
-        echo "Usuário registrado com sucesso.";
+        print ("Usuário registrado com sucesso.");
     }
 } else {
-    echo "Método de requisição inválido.";
+    print ("Método de requisição inválido.");
 }
 
 pg_close($conn);
