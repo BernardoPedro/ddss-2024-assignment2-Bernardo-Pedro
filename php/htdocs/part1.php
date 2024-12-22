@@ -36,9 +36,28 @@ $loggedIn = isset($_SESSION['username']);
             - added some explanations
             - corrected the form actions for php
         -->
+       <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+ 
 </head>
 
 <body>
+<?php if (isset($_SESSION['error_message'])): ?>
+    <div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">
+        <div class="toast show" role="alert" aria-live="assertive" aria-atomic="true">
+            <div class="toast-header bg-danger text-white">
+                <strong class="me-auto">Error</strong>
+                <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+            </div>
+            <div class="toast-body">
+                <?php 
+                echo $_SESSION['error_message'];
+                unset($_SESSION['error_message']); // limpa a mensagem após exibir
+                ?>
+            </div>
+        </div>
+    </div>
+<?php endif; ?>
   <div align="center">
     <h1>Design and Development of Secure Software</h1>
     <h2>Practical Assignment #2 - Part 1.1</h2>
@@ -49,13 +68,19 @@ $loggedIn = isset($_SESSION['username']);
       necessary and be responsible for all the content that is delivered.
       <em>The contents of this repository do not replace the proper reading of
         the assignment description.</em>
+      <a href="index.php"> Voltar para o índice</a>
     </div>
     <br />
     <br />
 
+
     <?php if ($loggedIn): ?>
-      <p>Bem-vindo, <?php echo htmlspecialchars($_SESSION['username']); ?>! <a href="part1_logout.php">Logout</a></p>
+      <p>Bem-vindo, <?php echo htmlspecialchars($_SESSION['username']); ?>!</p>
+      <form action="part1_logout.php" method="post" style="display:inline;">
+        <button type="submit">Logout</button>
+      </form>
     <?php endif; ?>
+
 
     <form action="/part1_register.php" method="post">
       <table border="1" cellpadding="1" style="width: 300px; background-color: #f1f1f1">
@@ -65,19 +90,16 @@ $loggedIn = isset($_SESSION['username']);
           </tr>
         </thead>
         <tbody>
-          <!-- Campo oculto para o CSRF token -->
-          <input type="hidden" name="csrf_token"
-            value="<?php echo htmlspecialchars($_SESSION['csrf_token'], ENT_QUOTES, 'UTF-8'); ?>">
           <tr>
             <td><label>Username</label></td>
             <td>
-              <input type="text" placeholder="Enter Username" name="r_username" required />
+              <input type="text" placeholder="Enter Username" name="r_username" maxlength="32" required />
             </td>
           </tr>
           <tr>
             <td><label>Password</label></td>
             <td>
-              <input type="password" placeholder="Enter Password" name="r_password" required />
+              <input type="password" placeholder="Enter Password" name="r_password" maxlength="32" required />
             </td>
           </tr>
           <tr>

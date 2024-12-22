@@ -7,17 +7,16 @@ if (!isset($_SESSION['username'])) {
     exit();
 }
 
+if (!isset($_POST['csrf_token']) || $_POST['csrf_token'] !== $_SESSION['csrf_token']) {
+    die("Erro: Token CSRF inválido.");
+}
+
 if (!$conn) {
     error_log("Error connecting to database: " . pg_last_error());
     exit("Error connecting to database.");
-}
-
-if (isset($_SESSION['username'])) {
-    print ("Sessão não iniciada, por favor dê login!<br/>");
-    exit();
 } else {
-    if ($_SERVER["REQUEST_METHOD"] == "GET") {
-        $text = $_GET['c_text'];
+    if ($_SERVER["REQUEST_METHOD"] == "POST") {
+        $text = $_POST['c_text'];
         // Sanitizar a entrada do usuário
         $text = htmlspecialchars($text, ENT_QUOTES, 'UTF-8');
         // Preparar e executar a consulta de forma segura

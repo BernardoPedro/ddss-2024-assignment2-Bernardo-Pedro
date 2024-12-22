@@ -1,8 +1,17 @@
 <?php session_start(); // Verificar se o usuário está logado 
 if (!isset($_SESSION['username'])) {
-  printf("Error: User not logged in. Please log in first!<br/>");
-  exit();
-} ?>
+
+
+  // Armazena a mensagem de erro em uma sessão
+  $_SESSION['error_message'] = "Error: User not logged in. Please log in first!";
+    
+  // Redireciona para a página de login ou atual
+  header("Location: part1.php");
+   exit();
+  // printf("Error: User not logged in. Please log in first!<br/>");
+  // exit();
+}
+?>
 
 <!doctype html>
 <!--
@@ -28,6 +37,8 @@ if (!isset($_SESSION['username'])) {
   <title>DDSS PA2 - Part 1.2</title>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
   <!--
             V3-php info:
             - corrected a few naming bugs in the inputs
@@ -38,6 +49,7 @@ if (!isset($_SESSION['username'])) {
 </head>
 
 <body>
+
   <div align="center">
     <h1>Design and Development of Secure Software</h1>
     <h2>Practical Assignment #2 - Part 1.2</h2>
@@ -48,11 +60,12 @@ if (!isset($_SESSION['username'])) {
       necessary and be responsible for all the content that is delivered.
       <em>The contents of this repository do not replace the proper reading of
         the assignment description.</em>
+      <a href="index.php"> Voltar para o índice</a>
     </div>
     <br />
     <br />
 
-    <form action="/part2_vulnerable.php">
+    <form action="/part2_vulnerable.php" method="post">
       <table style="width: 500px; background-color: #f1f1f1" border="1" cellpadding="1">
         <thead>
           <tr>
@@ -75,7 +88,7 @@ if (!isset($_SESSION['username'])) {
     <br />
     <br />
 
-    <form action="/part2_correct.php">
+    <form action="/part2_correct.php" method="post">
       <table style="width: 500px; background-color: #f19191" border="1" cellpadding="1">
         <thead>
           <tr>
@@ -86,6 +99,8 @@ if (!isset($_SESSION['username'])) {
           <tr>
             <td>
               <textarea style="width: 100%; height: 100px" placeholder="Enter Text" name="c_text" required></textarea>
+              <input type="hidden" name="csrf_token"
+                value="<?php echo htmlspecialchars($_SESSION['csrf_token'], ENT_QUOTES, 'UTF-8'); ?>">
             </td>
           </tr>
           <tr>

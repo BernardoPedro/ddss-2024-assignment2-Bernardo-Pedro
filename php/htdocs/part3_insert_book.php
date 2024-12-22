@@ -7,6 +7,10 @@ if (!isset($_SESSION['username'])) {
     exit();
 }
 
+if (!isset($_POST['csrf_token']) || $_POST['csrf_token'] !== $_SESSION['csrf_token']) {
+    die("Erro: Token CSRF inválido.");
+}
+
 // Conexão segura com o banco de dados
 $conn = pg_connect("host=db dbname=ddss-database-assignment-2 user=ddss-database-assignment-2 password=ddss-database-assignment-2");
 if (!$conn) {

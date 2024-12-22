@@ -48,6 +48,7 @@ if (!isset($_SESSION['username'])) {
             You should modify everything you deem as necessary and be responsible for all the content that is delivered.
             <em>The contents of this repository do not replace the proper reading of the assignment description.</em>
             <a href="part3_postbook.php"> Inserir Livro</a>
+            <a href="index.php">Voltar para o índice</a>
         </div>
         <br>
         <br>
@@ -102,8 +103,6 @@ if (!isset($_SESSION['username'])) {
                                     <td style="border-width: 1pt"><input type="text" name="v_pricemax" maxlength="100"
                                             value="" size="10"></td>
                                 </tr>
-
-
                                 <tr>
                                     <td colspan="2" align="center" valign="middle">Advanced</td>
                                 </tr>
@@ -602,15 +601,6 @@ if (!isset($_SESSION['username'])) {
                                         </select>
                                     </td>
                                 </tr>
-
-
-
-
-
-
-
-
-
                                 <tr>
                                     <td align="right" colspan="2"><button type="submit">Search</button></td>
                                 </tr>

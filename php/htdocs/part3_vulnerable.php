@@ -36,10 +36,10 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
     // Construção da query vulnerável
     $sql = "SELECT * FROM books WHERE 1=1";
     if (!empty($title)) {
-        $sql .= " AND title = '$title'";
+        $sql .= " AND title ILIKE '%$title%'";
     }
     if (!empty($author)) {
-        $sql .= " AND authors = '$author'";
+        $sql .= " AND authors ILIKE '%$author%'";
     }
     if (!empty($category)) {
         if ($category == "") {

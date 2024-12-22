@@ -69,7 +69,7 @@ $loggedIn = isset($_SESSION['username']);
 <body>
     <h1>Design and Development of Secure Software</h1>
     <h2>Inserir Novo Livro (Correto)</h2><a href="part3_postbook_vulnerable.php"> Visitar formulário
-        vulnerável</a>
+        vulnerável</a><a href="part3.php">Voltar para a parte 3</a>
     <form action="part3_insert_book.php" method="post">
         <table border="1">
             <thead>
@@ -123,6 +123,8 @@ $loggedIn = isset($_SESSION['username']);
                 <tr>
                     <td colspan="2" align="right"><button type="submit">Inserir Livro</button></td>
                 </tr>
+                <input type="hidden" name="csrf_token"
+                    value="<?php echo htmlspecialchars($_SESSION['csrf_token'], ENT_QUOTES, 'UTF-8'); ?>">
             </tbody>
         </table>
     </form>
